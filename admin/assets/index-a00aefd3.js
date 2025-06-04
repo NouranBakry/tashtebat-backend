@@ -1,0 +1,1 @@
+import{u as a,r,j as t,a as e,S as n}from"./index-778006b7.js";import{S as i}from"./index-9b88cb48.js";const f=()=>{const s=a();return r.useEffect(()=>{s("/a/orders")},[]),t("div",{className:"flex w-full h-screen justify-center items-center bg-grey-5 text-grey-90",children:[e(i,{title:"Home"}),e(n,{variant:"secondary"})]})};export{f as default};
