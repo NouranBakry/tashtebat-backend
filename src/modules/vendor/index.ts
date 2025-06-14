@@ -1,21 +1,10 @@
-// src/modules/vendor/index.ts
+import helloWorldLoader from "./loaders/hello-world"
 import VendorService from "./service"
-import { Vendor } from "./model"
+import { Module } from "@medusajs/framework/utils"
 
-console.log("🚀 Vendor entity registered:", Vendor)
-import { getMetadataArgsStorage } from "typeorm"
-console.log("🧱 Loaded entities:", getMetadataArgsStorage().tables.map(t => {
-    return typeof t.target === "function" ? t.target.name : t.target
-  }))
-export const entities = [Vendor]
+export const VENDOR_MODULE = "vendor"
 
-const moduleDefinition = {
-  id: "vendor",
-  key: "vendor",
-  registrationName: "vendorService",
+export default Module(VENDOR_MODULE, {
   service: VendorService,
-  entities: [Vendor],
-  models: [Vendor],
-}
-
-export default moduleDefinition
+  loaders: [helloWorldLoader]
+})

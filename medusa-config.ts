@@ -1,44 +1,40 @@
-import "./src/loaders/reflect-metadata"
 import { loadEnv, defineConfig } from '@medusajs/framework/utils'
 import path from "path";
 import resetPasswordTokenHandler  from "./src/subscribers/handle-reset"
-
-import * as dotenv from "dotenv"
-
-
-dotenv.config()
 
 
 loadEnv(process.env.NODE_ENV || 'development', process.cwd())
 console.log(process.env.DATABASE_URL)
 console.log("subscriber here: ", resetPasswordTokenHandler)
+console.log("🔧 Registering vendor module from:", path.join(__dirname, "src/modules/vendor"))
+
+import fs from "fs"
+
+const vendorPath = path.join(__dirname, "src/modules/vendor")
+console.log("🧪 Checking vendor path:", vendorPath)
+console.log("📂 Exists?", fs.existsSync(vendorPath))
+console.log("📄 Has index.ts?", fs.existsSync(path.join(vendorPath, "index.ts")))
 export default defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
-    entities: [  
-      "src/modules/vendor/*.ts",
-      "dist/modules/vendor/*.js",
-      "node_modules/@medusajs/medusa/dist/models/*.js"
-    ],
-    synchronize: false,
     http: {
+      jwtSecret: process.env.JWT_SECRET || "supersecret",
+      cookieSecret: process.env.COOKIE_SECRET || "supersecret",
       storeCors: process.env.STORE_CORS!,
       adminCors: process.env.ADMIN_CORS!,
       authCors: process.env.AUTH_CORS!,
-      jwtSecret: process.env.JWT_SECRET || "supersecret",
-      cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
-  },
-  modules: {
-    vendor : {
-      resolve: path.resolve(__dirname, "src/modules/vendor"),
+    redisOptions: {
+      connectionName: process.env.REDIS_CONNECTION_NAME ||
+        "medusa",
     },
-  },
-  eventBus: {
-    resolve: "@medusajs/event-bus-local",
-    options: {
-      subscribers: [resetPasswordTokenHandler],
+    redisPrefix: process.env.REDIS_URL || "medusa:",
+    databaseDriverOptions: process.env.NODE_ENV !== "development" ? { connection: { ssl: { rejectUnauthorized: false } } } : {},
     },
-  },
+  modules: [
+    {
+    resolve: "./src/modules/vendor",
+    },
+  ],
 })
 

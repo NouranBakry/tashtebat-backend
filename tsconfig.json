@@ -17,7 +17,8 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "checkJs": false,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "types": ["node"]
   },
   "ts-node": {
     "swc": true
@@ -27,8 +28,6 @@
   ],
   "exclude": [
     "node_modules",
-    ".medusa/server",
-    ".medusa/admin",
     ".cache"
   ]
 }
