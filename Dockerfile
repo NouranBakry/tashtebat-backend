@@ -1,17 +1,22 @@
-FROM node:18
+FROM node:22
 
+# Set working directory
 WORKDIR /app
 
+# Copy package files
 COPY package*.json ./
 
-RUN npm ci
+# Install dependencies
+RUN npm install
 
-RUN apt-get update && apt-get install -y postgresql-client
-
-RUN npm install -g @medusajs/medusa-cli@latest
-
+# Copy rest of the application
 COPY . .
 
-RUN chmod +x ./develop.sh
+# Build the app (includes admin if configured)
+RUN npm run build
 
-ENTRYPOINT ["./develop.sh"]
+# Expose Medusa port
+EXPOSE 9000
+
+# Start the Medusa backend
+CMD ["npm", "run", "start"]

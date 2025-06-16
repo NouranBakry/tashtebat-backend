@@ -15,6 +15,9 @@ console.log("🧪 Checking vendor path:", vendorPath)
 console.log("📂 Exists?", fs.existsSync(vendorPath))
 console.log("📄 Has index.ts?", fs.existsSync(path.join(vendorPath, "index.ts")))
 export default defineConfig({
+    admin: {
+      disable: process.env.DISABLE_MEDUSA_ADMIN === "true",
+    },
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
     http: {
@@ -24,12 +27,10 @@ export default defineConfig({
       adminCors: process.env.ADMIN_CORS!,
       authCors: process.env.AUTH_CORS!,
     },
-    redisOptions: {
-      connectionName: process.env.REDIS_CONNECTION_NAME ||
-        "medusa",
-    },
+    redisUrl: process.env.REDIS_URL,
     redisPrefix: process.env.REDIS_URL || "medusa:",
     databaseDriverOptions: process.env.NODE_ENV !== "development" ? { connection: { ssl: { rejectUnauthorized: false } } } : {},
+    workerMode: process.env.MEDUSA_WORKER_MODE as "shared" | "worker" | "server",
     },
   modules: [
     {
