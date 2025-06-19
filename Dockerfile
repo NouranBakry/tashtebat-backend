@@ -7,8 +7,4 @@ COPY . .
 
 RUN npm install
 
-WORKDIR .medusa/server
-
-RUN npm install && npm run build
-
 CMD ["npm", "run", "start"]
