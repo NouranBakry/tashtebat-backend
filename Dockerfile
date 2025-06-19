@@ -1,22 +1,24 @@
+# Use Node 18 (LTS)
 FROM node:22
 
-# Set working directory
+# Create app directory
 WORKDIR /app
 
-# Copy package files
+# Install system dependencies
+RUN apk add --no-cache bash
+
+# Copy package files and install dependencies
 COPY package*.json ./
+RUN npm install --production
 
-# Install dependencies
-RUN npm install
-
-# Copy rest of the application
+# Copy all project files
 COPY . .
 
-# Build the app (includes admin if configured)
+# Build Medusa project
 RUN npm run build
 
-# Expose Medusa port
+# Expose the Medusa port
 EXPOSE 9000
 
-# Start the Medusa backend
-CMD bash -c "npx medusa db:migrate && npx medusa start"
+# Start Medusa in production
+CMD ["npm", "run", "start"]
