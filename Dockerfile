@@ -4,9 +4,6 @@ FROM node:22
 # Create app directory
 WORKDIR /app
 
-# Install system dependencies
-RUN apk add --no-cache bash
-
 # Copy package files and install dependencies
 COPY package*.json ./
 RUN npm install --production
