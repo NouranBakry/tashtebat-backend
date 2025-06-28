@@ -15,7 +15,7 @@
   "scripts": {
     "build": "medusa build",
     "seed": "medusa exec ./src/scripts/seed.ts",
-    "start": "cd .medusa/server && npm install && npm run predeploy && npm run start",
+    "start": "cp .env .medusa/server && cd .medusa/server && npm install && npm run predeploy && npm run start",
     "dev": "medusa develop",
     "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
     "test:integration:modules": "TEST_TYPE=integration:modules NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit",
@@ -36,7 +36,7 @@
     "glob": "^9.3.5",
     "multer": "^2.0.1",
     "pg": "^8.13.0",
-    "zod": "^3.25.67"
+    "zod": "3.22.4"
   },
   "devDependencies": {
     "@medusajs/test-utils": "2.8.4",
