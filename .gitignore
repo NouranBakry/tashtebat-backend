@@ -25,5 +25,9 @@ build
 
 .medusa
 
+<<<<<<< HEAD
 # SSH private key
 tashtebat-ssh-git
+=======
+ca-certificate.crt
+>>>>>>> main
