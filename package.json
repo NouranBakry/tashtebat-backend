@@ -15,12 +15,8 @@
   "scripts": {
     "build": "medusa build",
     "seed": "medusa exec ./src/scripts/seed.ts",
-<<<<<<< HEAD
     "start": "cd .medusa/server && npm install && npm run predeploy && npm run start",
-=======
     "postbuild": "cd .medusa/server && npm install",
-    "start": "medusa start",
->>>>>>> c311df4 (package.json pre deployment update)
     "dev": "medusa develop",
     "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
     "test:integration:modules": "TEST_TYPE=integration:modules NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit",
