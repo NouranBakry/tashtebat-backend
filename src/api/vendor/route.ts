@@ -1,6 +1,5 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import VendorService from "../../modules/vendor/service";
-import { createVendorWorkflow } from "../../workflows/create-vendor";
 
 console.log("🚀 vendor route file loaded");
 
@@ -11,25 +10,24 @@ export const createVendorSchema = z.object({
 });
 
 export async function POST(req: MedusaRequest, res: MedusaResponse) {
-    const { name }  = createVendorSchema.parse(req.body);
-
-  // Validate that a name was provided
-  if (!name) {
-    res.status(400).json({ message: "Name is required in the request body." });
-    return;
-  }
-  
   try {
+    // Validate the entire body and get the validated object
+    const validatedBody = createVendorSchema.parse(req.body);
+
     const vendorService: VendorService = req.scope.resolve("VendorService");
-    
-    // Call the service's create method, passing the name from the request
-    const vendor = await vendorService.createVendors(name);
-  
-    res.status(201).json({
-      vendor,
-    });
+
+    // Pass the entire validated object to the service method
+    const vendor = await vendorService.createVendors(validatedBody);
+
+    res.status(201).json({ vendor });
   } catch (error) {
-    res.status(500).json({ message: "Failed to create vendor." });
+    if (error instanceof z.ZodError) {
+      res
+        .status(400)
+        .json({ message: "Validation failed", errors: error.errors });
+    } else {
+      res.status(500).json({ message: "Failed to create vendor." });
+    }
   }
 }
 
