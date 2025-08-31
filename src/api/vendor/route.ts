@@ -4,8 +4,14 @@ import { createVendorWorkflow } from "../../workflows/create-vendor";
 
 console.log("🚀 vendor route file loaded");
 
+import { z } from "zod";
+
+export const createVendorSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+});
+
 export async function POST(req: MedusaRequest, res: MedusaResponse) {
-    const name  = req.body;
+    const { name }  = createVendorSchema.parse(req.body);
 
   // Validate that a name was provided
   if (!name) {
