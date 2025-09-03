@@ -19,7 +19,7 @@ console.log(
   "📄 Has index.ts?",
   fs.existsSync(path.join(vendorPath, "index.ts"))
 );
-export default defineConfig({
+module.exports =  defineConfig({
   admin: {
     backendUrl: process.env.MEDUSA_BACKEND_URL,
   },
