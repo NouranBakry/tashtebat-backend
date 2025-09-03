@@ -19,7 +19,7 @@ console.log(
   "📄 Has index.ts?",
   fs.existsSync(path.join(vendorPath, "index.ts"))
 );
-module.exports =  defineConfig({
+module.exports = defineConfig({
   admin: {
     backendUrl: process.env.MEDUSA_BACKEND_URL,
   },
@@ -42,6 +42,17 @@ module.exports =  defineConfig({
       },
     },
   },
+  plugins: [
+    {
+      resolve: `medusa-file-spaces`,
+      options: {
+        url: process.env.SPACE_URL,
+        bucket: process.env.SPACE_BUCKET,
+        access_key_id: process.env.SPACE_ACCESS_KEY_ID,
+        secret_access_key: process.env.SPACE_SECRET_ACCESS_KEY,
+      },
+    },
+  ],
   modules: [
     {
       resolve: "./src/modules/vendor",

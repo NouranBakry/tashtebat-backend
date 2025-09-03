@@ -23,7 +23,7 @@
     "predeploy": "medusa db:migrate"
   },
   "dependencies": {
-    "@medusajs/admin-sdk": "2.9.0",    
+    "@medusajs/admin-sdk": "2.9.0",
     "@medusajs/cli": "2.9.0",
     "@medusajs/framework": "2.9.0",
     "@medusajs/medusa": "^2.9.0",
@@ -34,6 +34,7 @@
     "@mikro-orm/postgresql": "6.4.3",
     "awilix": "^8.0.1",
     "glob": "^9.3.5",
+    "medusa-file-spaces": "^1.4.1",
     "multer": "^2.0.1",
     "pg": "^8.13.0",
     "zod": "^3.25.76"
