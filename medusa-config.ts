@@ -49,6 +49,7 @@ module.exports = defineConfig({
         url: process.env.SPACE_URL,
         bucket: process.env.SPACE_BUCKET,
         access_key_id: process.env.SPACE_ACCESS_KEY_ID,
+        region: process.env.SPACE_REGION,
         secret_access_key: process.env.SPACE_SECRET_ACCESS_KEY,
       },
     },
