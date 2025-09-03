@@ -1,5 +1,5 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
-import VendorService from "../../../modules/vendor/service";
+import VendorService from "../../modules/vendor/service";
 
 console.log("🚀 vendor route file loaded");
 
